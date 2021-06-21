@@ -8,7 +8,7 @@ Welcome to the private preview of hierarchical partition keys — also known as 
   - You'll receive an email confirmation when the feature has been enabled on your account, within 5 business days. 
 - Find the latest preview version of the supported SDK:
     - [.NET V3 SDK](https://www.nuget.org/packages/Microsoft.Azure.Cosmos/) - version 3.17.0-preview (or a higher preview version)
-    - [Java V4 SDK](https://mvnrepository.com/artifact/com.azure/azure-cosmos) - version TBD (or a higher preview version)
+    - [Java V4 SDK](https://mvnrepository.com/artifact/com.azure/azure-cosmos) - version 4.16.0 (or a higher preview version)
 
 # Feature overview
 
@@ -112,6 +112,8 @@ ItemResponse<PaymentEvent> itemResponse2 = await container.CreateItemAsync(sampl
 #### Java V4 SDK
 
 ```java
+// Option 1: Pass in the object and the SDK will automatically extract the full partition key path
+
  UserSession userObject = new UserSession();
  userObject.setTenantId("Microsoft");
  userObject.setUserId("1");
@@ -119,6 +121,16 @@ ItemResponse<PaymentEvent> itemResponse2 = await container.CreateItemAsync(sampl
  userObject.setId(UUID.randomUUID().toString());
                 
 Mono<CosmosItemResponse<UserSession>> createdUserObject = container.createItem(userObject);
+
+// Option 2: Specify the full partition key path when creating the item (recommended for best performance)
+PartitionKey partitionKey = new PartitionKeyBuilder()
+            .add(userObject.getTenantId())
+            .add(userObject.getUserId())
+            .add(userObject.getSessionId())
+            .build();
+            
+Mono<CosmosItemResponse<UserSession>> createdUserObject = container.createItem(userObject, partitionKey);
+
 ```
 
 ### Perform a key/value lookup (point read) of an item
