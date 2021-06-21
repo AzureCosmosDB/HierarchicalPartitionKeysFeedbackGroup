@@ -55,14 +55,27 @@ Queries that specify either the TenantId, or both TenantId and UserId will be ef
 List<string> subpartitionKeyPaths = new List<string> { "/TenantId", "/UserId", "/TransactionId" };
 // Get reference to database that container will be created in
 Database database = await cosmosClient.GetDatabase("DatabaseName");
-// Create container - Subpartitioned by TenantId -> UserId 
+// Create container - Subpartitioned by TenantId -> UserId -> SessionId
 ContainerProperties containerProperties = new ContainerProperties(id: "ContainerName", partitionKeyPaths: subpartitionKeyPaths);
 container = await database.CreateContainerAsync(containerProperties, throughput: 400);
 ```
 
 #### Java V4 SDK
 ```java
-//TBD
+// List of partition keys, in hierarchical order. You can have up to three levels of keys.
+ List<String> partitionKeyPaths = new ArrayList<String>();
+        partitionKeyPaths.add("/tenantId");
+        partitionKeyPaths.add("/userId");
+        partitionKeyPaths.add("/sessionId");
+ //Create a partition key definition object with Kind("MultiHash") and Version V2
+ PartitionKeyDefinition subpartitionKeyDefinition = new PartitionKeyDefinition();
+        subpartitionKeyDefinition.setPaths(partitionKeyPaths);
+        subpartitionKeyDefinition.setKind(PartitionKind.MULTI_HASH);
+        subpartitionKeyDefinition.setVersion(PartitionKeyDefinitionVersion.V2);       
+// Create container - Subpartitioned by TenantId -> UserId -> SessionId
+CosmosContainerProperties containerProperties = new CosmosContainerProperties(containerName, subpartitionKeyDefinition);
+ThroughputProperties throughputProperties = ThroughputProperties.createManualThroughput(400);
+Mono<CosmosContainerResponse> containerIfNotExists = database.createContainerIfNotExists(containerProperties, throughputProperties);
 ```
 
 ### Add an item to a container 
@@ -99,7 +112,13 @@ ItemResponse<PaymentEvent> itemResponse2 = await container.CreateItemAsync(sampl
 #### Java V4 SDK
 
 ```java
-//TBD
+ UserSession userObject = new UserSession();
+ userObject.setTenantId("Microsoft");
+ userObject.setUserId("1");
+ userObject.setSessionId("0000-11-0000-1111");
+ userObject.setId(UUID.randomUUID().toString());
+                
+Mono<CosmosItemResponse<UserSession>> createdUserObject = container.createItem(userObject);
 ```
 
 ### Perform a key/value lookup (point read) of an item
@@ -118,7 +137,13 @@ var itemResponse = await containerSubpartitionByTenantId_UserId.ReadItemAsync<dy
 
 #### Java V4 SDK
 ```java
-//TBD
+String id = "0a70accf-ec5d-4c2b-99a7-af6e2ea33d3d"; 
+PartitionKey partitoinKey = new PartitionKeyBuilder()
+    .add("Microsoft")
+    .add("1")
+    .add("0")
+    .build();
+Mono<CosmosItemResponse<UserSession>> asyncItemResponseMono = container.readItem(userSession.getId(), partitionKey, UserSession.class);
 ```
 
 ### Run a query
