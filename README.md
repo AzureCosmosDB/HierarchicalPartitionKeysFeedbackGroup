@@ -193,8 +193,40 @@ using (FeedIterator<PaymentEvent> resultSet = container.GetItemQueryIterator<Pay
 
 #### Java V4 SDK
 ```java
-//TBD
+ CosmosPagedFlux<UserSession> pagedFluxResponse = container.queryItems(
+                "SELECT * FROM t WHERE t.TenantId IN ('Microsoft')", queryOptions, UserSession.class);
+ try {
+
+            pagedFluxResponse.byPage(preferredPageSize).flatMap(fluxResponse -> {
+                logger.info("Got a page of query result with " +
+                        fluxResponse.getResults().size() + " items(s)"
+                        + " and request charge of " + fluxResponse.getRequestCharge());
+
+                logger.info("Item Ids " + fluxResponse
+                        .getResults()
+                        .stream()
+                        .map(UserSession::getId)
+                        .collect(Collectors.toList()));
+
+                return Flux.empty();
+            }).blockLast();
+
+        } catch(Exception err) {
+            if (err instanceof CosmosException) {
+                //Client-specific errors
+                CosmosException cerr = (CosmosException) err;
+                cerr.printStackTrace();
+                logger.error(String.format("Read Item failed with %s\n", cerr));
+            } else {
+                //General errors
+                err.printStackTrace();
+            }
+        }
 ```
+
+# Link to Java SDK Sample
+[Java Samples](https://github.com/Azure-Samples/azure-cosmos-java-sql-api-samples)
+
 
 # How to give feedback or report an issue/bug
 Create an issue in this repo with your feedback/issue/bug.
