@@ -228,5 +228,5 @@ using (FeedIterator<PaymentEvent> resultSet = container.GetItemQueryIterator<Pay
 [Java Samples](https://github.com/Azure-Samples/azure-cosmos-java-sql-api-samples)
 
 
-# How to give feedback or report an issue/bug
-Create an issue in this repo with your feedback/issue/bug.
+# Have questions? / Report an issue/bug
+Create an issue in this repo with your feedback/issue/bug. 
