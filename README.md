@@ -8,7 +8,7 @@ Welcome to the private preview of hierarchical partition keys — also known as 
   - You'll receive an email confirmation when the feature has been enabled on your account, within 5 business days. 
 - Find the latest preview version of the supported SDK:
     - [.NET V3 SDK](https://www.nuget.org/packages/Microsoft.Azure.Cosmos/) - version 3.17.0-preview (or a higher preview version)
-    - [Java V4 SDK](https://mvnrepository.com/artifact/com.azure/azure-cosmos) - version 4.16.0 (or a higher preview version)
+    - [Java V4 SDK](https://mvnrepository.com/artifact/com.azure/azure-cosmos) - version 4.16.0-beta (or a higher beta version)
 
 # Feature overview
 
