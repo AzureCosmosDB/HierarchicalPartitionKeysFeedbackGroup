@@ -229,7 +229,7 @@ using (FeedIterator<PaymentEvent> resultSet = container.GetItemQueryIterator<Pay
 
 # Using ARM templates to create a Hierarchical partition containers.
 
-Please replace the `PartitionKey` object in the CosmosDB container container to match the kind and version values below.
+Please replace the `PartitionKey` object in the CosmosDB container payload to match the kind and version values below.
 
 ```
 "partitionKey": {
