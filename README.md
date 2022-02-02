@@ -227,6 +227,19 @@ using (FeedIterator<PaymentEvent> resultSet = container.GetItemQueryIterator<Pay
 # Link to Java SDK Sample
 [Java Samples](https://github.com/Azure-Samples/azure-cosmos-java-sql-api-samples)
 
+#### Using ARM templates to create a Hierarchical partition containers.
+
+Please replace the `PartitionKey` object in the CosmosDB container container to match the kind and version values below.
+
+```
+"partitionKey": {
+            "paths": [
+              <Your PartitionKeys>
+            ],
+            "kind": "MultiHash",
+            "Version": 2
+          }
+```
 
 # Have questions? / Report an issue/bug
 Create an issue in this repo with your feedback/issue/bug. 
