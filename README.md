@@ -241,5 +241,9 @@ Please replace the `PartitionKey` object in the CosmosDB container payload to ma
           }
 ```
 
+# Developer Resources - Using the CosmosDB Emulator
+
+You can alternatively test this feature out on the [CosmosDB Emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator). To enable this feature on the emulator, pleae start the emulator from the emulator directory with the /EnablePreview flag from command line. `.\CosmosDB.Emulator.exe /EnablePreview` 
+
 # Have questions? / Report an issue/bug
 Create an issue in this repo with your feedback/issue/bug. 
