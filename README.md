@@ -33,12 +33,12 @@ Queries that specify either the TenantId, or both TenantId and UserId will be ef
 - Do I have to create a new property in my documents to use this feature?
     - No. Simply specify the hierarchy of partition key paths you want to use during container creation. For example, if you partition by TenantId -> UserId, you do not need to create a new property with these values concatenated. Simply ensure that each document has a property TenantId and a property UserId. See the [code examples](#sample-code).
 
-# Limitations / known issues in the preview 
+# Limitations / known issues
 
 - Your Cosmos DB account must be [enrolled in the preview](https://aka.ms/cosmos-subpartitioning-signup) in order to use this feature. Make sure that you have signed-up and received confirmation your account has been onboarded. 
 - Working with containers that use hierarchical partition keys is supported only in the preview versions of the .NET V3 and Java V4 SDK. You must use the supported SDK to create new containers with hierarchical partition keys and to perform CRUD/query operations on the data. 
     - When issuing queries from the SDK, passing in a partition key in `QueryRequestOptions` is not currently supported. You must specify the partition key paths in the query text itself.
-    - Support for Portal, RP, PowerShell, and CLI, and other SDK languages is planned and not yet available. 
+    - Support for Portal, PowerShell, and CLI, and other SDK languages is planned and not yet available. 
 - In the Data Explorer in the portal, you currently are not be able to view the documents in a container with hierarchical partition keys. You can read or edit these documents with the supported .NET V3 or Java V4 SDK version.
 - You can specify up to 3 hierarchical partition keys. 
 - Hierarchial partition keys can currently only be enabled on new containers. The desired partition key paths must be specified upfront at the time of container creation and cannot be changed later. 
