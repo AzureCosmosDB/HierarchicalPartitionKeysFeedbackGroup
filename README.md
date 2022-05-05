@@ -1,11 +1,9 @@
 # Overview
 
-Welcome to the private preview of hierarchical partition keys — also known as subpartitioning — in Azure Cosmos DB. This repo contains onboarding instructions, documentation, and a link to the latest SDK versions. 
+Welcome to the preview of hierarchical partition keys — also known as subpartitioning — in Azure Cosmos DB. This repo contains onboarding instructions, documentation, and a link to the latest SDK versions. 
 
 # Getting started
 
-- Sign-up here to get your Cosmos DB account(s) enabled with the feature: https://aka.ms/cosmos-subpartitioning-signup. 
-  - You'll receive an email confirmation when the feature has been enabled on your account, within 5 business days. 
 - Find the latest preview version of the supported SDK:
     - [.NET V3 SDK](https://www.nuget.org/packages/Microsoft.Azure.Cosmos/) - version 3.17.0-preview (or a higher preview version)
     - [Java V4 SDK](https://mvnrepository.com/artifact/com.azure/azure-cosmos) - version 4.16.0-beta (or a higher beta version)
@@ -35,7 +33,6 @@ Queries that specify either the TenantId, or both TenantId and UserId will be ef
 
 # Limitations / known issues
 
-- Your Cosmos DB account must be [enrolled in the preview](https://aka.ms/cosmos-subpartitioning-signup) in order to use this feature. Make sure that you have signed-up and received confirmation your account has been onboarded. 
 - Working with containers that use hierarchical partition keys is supported only in the preview versions of the .NET V3 and Java V4 SDK. You must use the supported SDK to create new containers with hierarchical partition keys and to perform CRUD/query operations on the data. 
     - When issuing queries from the SDK, passing in a partition key in `QueryRequestOptions` is not currently supported. You must specify the partition key paths in the query text itself.
     - Support for Portal, PowerShell, and CLI, and other SDK languages is planned and not yet available. 
