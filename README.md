@@ -35,7 +35,7 @@ Queries that specify either the TenantId, or both TenantId and UserId will be ef
 
 - Working with containers that use hierarchical partition keys is supported only in the preview versions of the .NET V3 and Java V4 SDK. You must use the supported SDK to create new containers with hierarchical partition keys and to perform CRUD/query operations on the data. 
     - When issuing queries from the SDK, passing in a partition key in `QueryRequestOptions` is not currently supported. You must specify the partition key paths in the query text itself.
-    - Support for Portal, PowerShell, and CLI, and other SDK languages is planned and not yet available. 
+    - Support for Portal, and CLI, and other SDK languages is planned and not yet available. 
 - In the Data Explorer in the portal, you currently are not be able to view the documents in a container with hierarchical partition keys. You can read or edit these documents with the supported .NET V3 or Java V4 SDK version.
 - You can specify up to 3 hierarchical partition keys. 
 - Hierarchial partition keys can currently only be enabled on new containers. The desired partition key paths must be specified upfront at the time of container creation and cannot be changed later. 
@@ -223,6 +223,21 @@ using (FeedIterator<PaymentEvent> resultSet = container.GetItemQueryIterator<Pay
 
 #### Link to Java SDK Sample
 [Java Samples](https://github.com/Azure-Samples/azure-cosmos-java-sql-api-samples)
+
+# Using Az Powershell commands to create Hierarchical partition containers
+
+Please specify these two arguments when creating a container. `-PartitionKeyKind "MultiHash" -PartitionKeyVersion 2`
+
+Sample Code:
+
+```
+  $PartitionKeyPathValue = @()
+  $PartitionKeyPathValue += "/pk1"
+  $PartitionKeyPathValue += "/pk2"
+  
+New-AzCosmosDBSqlContainer -ParentObject $NewDatabase -Name $ContainerName -PartitionKeyPath $PartitionKeyPathValue -PartitionKeyKind "MultiHash" -PartitionKeyVersion 2
+```
+
 
 # Using ARM templates to create Hierarchical partition containers.
 
