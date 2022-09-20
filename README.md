@@ -36,7 +36,7 @@ Queries that specify either the TenantId, or both TenantId and UserId will be ef
 - Working with containers that use hierarchical partition keys is supported only in the preview versions of the .NET V3 and Java V4 SDK. You must use the supported SDK to create new containers with hierarchical partition keys and to perform CRUD/query operations on the data. 
     - When issuing queries from the SDK, passing in a partition key in `QueryRequestOptions` is not currently supported. You must specify the partition key paths in the query text itself.
     - Support for Portal, and CLI, and other SDK languages is planned and not yet available. 
-- In the Data Explorer in the portal, you currently are not be able to view the documents in a container with hierarchical partition keys. You can read or edit these documents with the supported .NET V3 or Java V4 SDK version.
+- ~~In the Data Explorer in the portal, you currently are not be able to view the documents in a container with hierarchical partition keys. You can read or edit these documents with the supported .NET V3 or Java V4 SDK version~~ Data Explorer in the portal now supports hierarchical partitioned containers. 
 - You can specify up to 3 hierarchical partition keys. 
 - Hierarchial partition keys can currently only be enabled on new containers. The desired partition key paths must be specified upfront at the time of container creation and cannot be changed later. 
 - Hierarchical partition keys is currently supported only for SQL API accounts (API for MongoDB and Cassandra API are not currently supported).
